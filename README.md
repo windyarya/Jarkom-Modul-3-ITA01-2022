@@ -58,7 +58,7 @@ Setelah proxy Berlint diatur oleh Loid, dia melakukan pengujian dan mendapatkan 
 |Akses Internet (HTTP) | X | X | X|
 |Akses Internet (HTTPS) | X | V | V|
 |Akses loid-work.com dan franky-work.com | V | X | X|
-|Speed limit (128Kbps) | tidak bisa akses | X (Speed tidak dibatasi | V|
+|Speed limit (128Kbps) | tidak bisa akses | X (Speed tidak dibatasi) | V|
 
 X: Tidak
 V: Iya
