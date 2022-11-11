@@ -54,6 +54,7 @@ Pada Proxy Server di Berlint, Loid berencana untuk mengatur bagaimana Client dap
 Setelah proxy Berlint diatur oleh Loid, dia melakukan pengujian dan mendapatkan hasil sesuai tabel berikut.
 
 | Aksi | Senin (10.00) | Senin (20.00) | Sabtu (10.00)|
+| ------------- |-------------| -----| -----|
 |Akses Internet (HTTP) | X | X | X|
 |Akses Internet (HTTPS) | X | V | V|
 |Akses loid-work.com dan franky-work.com | V | X | X|
