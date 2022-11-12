@@ -18,6 +18,179 @@ Repository Laporan Resmi Praktikum Jaringan Komputer Modul 3 Kelompok ITA01 Tahu
 * [Soal 7](https://github.com/windyarya/Jarkom-Modul-3-ITA01-2022/#soal-7)
 * [Soal 8](https://github.com/windyarya/Jarkom-Modul-3-ITA01-2022/#soal-8)
 
+# Soal 1
+Loid bersama Franky berencana membuat peta tersebut dengan kriteria WISE sebagai DNS Server, Westalis sebagai DHCP Server, Berlint sebagai Proxy Server
+
+## Pengerjaan Soal
+### Topologi
+Berikut adalah topologi jaringan untuk soal shift 2 yang kami buat:<br>
+![Topologi](images/1.png)<br>
+
+### Konfigurasi IP Address
+Berikut adalah konfigurasi IP untuk setiap node yang ada pada topologi kami.
+#### Ostania
+```
+ auto eth0
+ iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+	address 10.40.1.1
+	netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+	address 10.40.2.1
+	netmask 255.255.255.0
+
+auto eth3
+iface eth3 inet static
+	address 10.40.3.1
+	netmask 255.255.255.0
+```
+
+#### Wise
+```
+auto eth0
+iface eth0 inet static
+	address 10.40.2.2
+	netmask 255.255.255.0
+	gateway 10.40.2.1
+```
+
+#### Berlint
+```
+auto eth0
+iface eth0 inet static
+	address 10.40.2.3
+	netmask 255.255.255.0
+	gateway 10.40.2.1
+```
+
+#### Westalis
+```
+auto eth0
+iface eth0 inet static
+	address 10.40.2.4
+	netmask 255.255.255.0
+	gateway 10.40.2.1
+```
+
+#### Eden
+```
+auto eth0
+iface eth0 inet dhcp
+hwaddress ether 7a:68:b2:d1:13:73
+```
+
+#### NewstonCastle
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+#### KemonoPark
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+#### SSS
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+#### Garden
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+#### Persiapan Berlint
+```
+apt-get update
+apt-get install libapache2-mod-php7.0 -y
+apt-get install squid -y
+```
+
+#### Persiapan Westalis
+``` 
+apt-get update
+apt-get install isc-dhcp-server -y
+```
+
+#### Persiapan Wise
+```
+apt-get update
+apt-get install bind9 -y
+```
+
+## Kendala
+Tidak ada kendala
+
+## Dokumentasi Soal 2
+- Mencoba ping `google.com` pada salah satu komputer server<br>
+![Hasil soal 1](images/1 2.png)<br>
+
+# Soal 2
+dan Ostania sebagai DHCP Relay
+
+## Pengerjaan Soal
+Pada lokasi /etc/default/isc-dhcp-relay di ostania Kami menambah perintah perintah
+```
+# What servers should the DHCP relay forward requests to?
+SERVERS=\"10.40.2.4\"
+# On what interfaces should the DHCP relay (dhrelay) serve DHCP requests?
+INTERFACES=\"eth1 eth2 eth3\"
+# Additional options that are passed to the DHCP relay daemon?
+OPTIONS=\"\"
+```
+
+Lalu lakukan perintah untuk menjalankan perintahnya
+```
+service isc-dhcp-relay star
+```
+
+## Dokumentasi Soal 2
+- Maka Eden akan mendapatkan IP ```10.40.3.13```<br>
+![Hasil soal 2](images/2.png)<br>
+
+## Kendala
+Tidak ada kendala
+
+# Soal 3
+Loid dan Franky menyusun peta tersebut dengan hati-hati dan teliti.
+
+Ada beberapa kriteria yang ingin dibuat oleh Loid dan Franky, yaitu:
+1. Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server.
+2. Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.50 - [prefix IP].1.88 dan [prefix IP].1.120 - [prefix IP].1.155
+
+## Pengerjaan Soal
+Edit file /etc/dhcp/dhcpd.conf dengan isi
+```
+subnet 10.40.1.0 netmask 255.255.255.0 {
+        range 10.40.1.50 10.40.1.88;
+        range 10.40.1.120 10.40.1.155;
+        option routers 10.40.1.1;
+        option broadcast-address 10.40.1.255;
+        option domain-name-servers 10.40.2.2;
+}
+
+subnet 10.40.2.0 netmask 255.255.255.0 {}
+```
+
+Jangan lupa restart dhcpnya sebelum menjalankannya
+```
+service isc-dhcp-server restart
+```
+
+## Kendala
+Tidak ada kendala
+
+## Dokumentasi Soal 3
+- <br>
+![Hasil soal 3](images/3.png)<br>
 
 # Soal 7
 Loid dan Franky berencana menjadikan Eden sebagai server untuk pertukaran informasi dengan alamat IP yang tetap dengan IP [prefix IP].3.13 dengan Prefix IP 10.40
