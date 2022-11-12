@@ -6,6 +6,8 @@ Repository Laporan Resmi Praktikum Jaringan Komputer Modul 3 Kelompok ITA01 Tahu
 2. Salman Al Farisi Sudirlan (5027201056)
 3. I Putu Windy Arya Sagita (5027201071)
 
+Kontribusi untuk modul ini sama rata (33.33% per orang).
+
 # Daftar Isi
 
 * [Daftar Isi](https://github.com/windyarya/Jarkom-Modul-3-ITA01-2022#daftar-isi)
