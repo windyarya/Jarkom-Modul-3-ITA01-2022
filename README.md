@@ -27,6 +27,7 @@ Loid bersama Franky berencana membuat peta tersebut dengan kriteria WISE sebagai
 ### Topologi
 
 Berikut adalah topologi jaringan untuk soal shift 2 yang kami buat:
+
 ![Topologi](images/1.png)
 
 ### Konfigurasi IP Address
@@ -35,9 +36,9 @@ Berikut adalah konfigurasi IP untuk setiap node yang ada pada topologi kami.
 
 #### Ostania
 
-```
- auto eth0
- iface eth0 inet dhcp
+```bash
+auto eth0
+iface eth0 inet dhcp
 
 auto eth1
 iface eth1 inet static
@@ -57,7 +58,7 @@ iface eth3 inet static
 
 #### Wise
 
-```
+```bash
 auto eth0
 iface eth0 inet static
  address 10.40.2.2
@@ -67,7 +68,7 @@ iface eth0 inet static
 
 #### Berlint
 
-```
+```bash
 auto eth0
 iface eth0 inet static
  address 10.40.2.3
@@ -77,7 +78,7 @@ iface eth0 inet static
 
 #### Westalis
 
-```
+```bash
 auto eth0
 iface eth0 inet static
  address 10.40.2.4
@@ -87,7 +88,7 @@ iface eth0 inet static
 
 #### Eden
 
-```
+```bash
 auto eth0
 iface eth0 inet dhcp
 hwaddress ether 7a:68:b2:d1:13:73
@@ -95,35 +96,35 @@ hwaddress ether 7a:68:b2:d1:13:73
 
 #### NewstonCastle
 
-```
+```bash
 auto eth0
 iface eth0 inet dhcp
 ```
 
 #### KemonoPark
 
-```
+```bash
 auto eth0
 iface eth0 inet dhcp
 ```
 
 #### SSS
 
-```
+```bash
 auto eth0
 iface eth0 inet dhcp
 ```
 
 #### Garden
 
-```
+```bash
 auto eth0
 iface eth0 inet dhcp
 ```
 
 #### Persiapan Berlint
 
-```
+```bash
 apt-get update
 apt-get install libapache2-mod-php7.0 -y
 apt-get install squid -y
@@ -131,14 +132,14 @@ apt-get install squid -y
 
 #### Persiapan Westalis
 
-```
+```bash
 apt-get update
 apt-get install isc-dhcp-server -y
 ```
 
 #### Persiapan Wise
 
-```
+```bash
 apt-get update
 apt-get install bind9 -y
 ```
@@ -149,8 +150,9 @@ Tidak ada kendala
 
 ## Dokumentasi Soal 1
 
-- Mencoba ping `google.com` pada salah satu komputer server<br>
-![Hasil soal 1](images/1_2.png)<br>
+* Mencoba `ping google.com` pada salah satu komputer server
+
+![Hasil soal 1](images/1_2.png)
 
 # Soal 2
 
@@ -158,9 +160,9 @@ dan Ostania sebagai DHCP Relay
 
 ## Pengerjaan Soal
 
-Pada lokasi /etc/default/isc-dhcp-relay di ostania Kami menambah perintah perintah
+Pada lokasi `/etc/default/isc-dhcp-relay` di ostania Kami menambah perintah perintah
 
-```
+```bash
 # What servers should the DHCP relay forward requests to?
 SERVERS=\"10.40.2.4\"
 # On what interfaces should the DHCP relay (dhrelay) serve DHCP requests?
@@ -171,14 +173,15 @@ OPTIONS=\"\"
 
 Lalu lakukan perintah untuk menjalankan perintahnya
 
-```
+```bash
 service isc-dhcp-relay star
 ```
 
 ## Dokumentasi Soal 2
 
-- Maka Eden akan mendapatkan IP ```10.40.3.13```<br>
-![Hasil soal 2](images/2.png)<br>
+* Maka Eden akan mendapatkan IP `10.40.3.13`
+
+![Hasil soal 2](images/2.png)
 
 ## Kendala
 
@@ -195,9 +198,9 @@ Ada beberapa kriteria yang ingin dibuat oleh Loid dan Franky, yaitu:
 
 ## Pengerjaan Soal
 
-Edit file /etc/dhcp/dhcpd.conf dengan isi
+Edit file `/etc/dhcp/dhcpd.conf` dengan isi
 
-```
+```bash
 subnet 10.40.1.0 netmask 255.255.255.0 {
         range 10.40.1.50 10.40.1.88;
         range 10.40.1.120 10.40.1.155;
@@ -211,7 +214,7 @@ subnet 10.40.2.0 netmask 255.255.255.0 {}
 
 Jangan lupa restart dhcpnya sebelum menjalankannya
 
-```
+```bash
 service isc-dhcp-server restart
 ```
 
@@ -221,8 +224,9 @@ Tidak ada kendala
 
 ## Dokumentasi Soal 3
 
-- Mengecek ip dengan syntax `ip a`<br>
-![Hasil soal 3](images/3.png)<br>
+* Mengecek ip dengan syntax `ip a`
+
+![Hasil soal 3](images/3.png)
 
 # Soal 4
 
@@ -264,7 +268,7 @@ Tidak ada kendala
 
 ## Dokumentasi Soal 4
 
-- Mengecek ip dengan syntax `ip -br a`
+* Mengecek ip dengan syntax `ip -br a`
 
 ![Hasil soal 4](images/4.1.png)
 
@@ -292,7 +296,7 @@ options {
 };
 ```
 
-Untuk membuat client bisa terhubung, pada soal no 3 dan 4 kami sudah menambahkan syntax `option domain-name-servers 10.40.2.2;` pada setiap subnet nya. 
+Untuk membuat client bisa terhubung, pada soal no 3 dan 4 kami sudah menambahkan syntax `option domain-name-servers 10.40.2.2;` pada setiap subnet nya.
 
 Setelah itu jangan lupa untuk merestart bind9 nya.
 
@@ -306,7 +310,7 @@ Tidak ada kendala
 
 ## Dokumentasi Soal 5
 
-- Mengecek koneksi internet dengan `ping google.com`
+* Mengecek koneksi internet dengan `ping google.com`
 
 ![Hasil soal 5](images/5.1.png)
 
@@ -383,7 +387,7 @@ Tidak ada
 
 ## Dokumentasi Soal 7
 
-- Maka Eden akan mendapatkan IP ```10.40.3.13```<br>
+* Maka Eden akan mendapatkan IP ```10.40.3.13```<br>
 ![Hasil soal 7](images/7.png)<br>
 
 # Soal 8
@@ -414,7 +418,7 @@ V: Iya
 
 ### Client Berlint
 
-- Memindahkan file pada ```/etc/squid/squid.conf``` ke ```/etc/squid/squid.conf.bak``` dengan command:
+* Memindahkan file pada ```/etc/squid/squid.conf``` ke ```/etc/squid/squid.conf.bak``` dengan command:
 
 ```sh
 mv /etc/squid/squid.conf /etc/squid/squid.conf.bak
@@ -466,7 +470,22 @@ Tidak ada.
 
 ## Dokumentasi Soal 8
 
-- ```lynx google.com```<br>
-![Hasil soal 8a](images/8a.png)<br>
-* ```lynx loid-work.com``<br>
-![Hasil soal 8a](images/8.png)
+* Akses Google pada jam kerja (Senin - Jumat 10.00 - 17.00)  `lynx google.com`
+
+![Hasil soal 8a](images/8.1.1.png)
+![Hasil soal 8a](images/8.1.2.png)
+
+* Akses loid-work.com pada jam kerja (Senin - Jumat 10.00 - 17.00)  `lynx loid-work.com`
+
+![Hasil soal 8a](images/8.2.1.png)
+![Hasil soal 8a](images/8.2.2.png)
+
+* Akses google.com di luar jam kerja (Senin - Jumat 17.00 - 08.00 [besoknya] dan Sabtu - Minggu 24 jam)  `lynx google.com`
+
+![Hasil soal 8a](images/8.3.1.png)
+![Hasil soal 8a](images/8.3.2.png)
+
+* Akses loid-work.com di luar jam kerja (Senin - Jumat 17.00 - 08.00 [besoknya] dan Sabtu - Minggu 24 jam)  `lynx loid-work.com`
+
+![Hasil soal 8a](images/8.4.1.png)
+![Hasil soal 8a](images/8.4.2.png)
