@@ -396,11 +396,11 @@ SSS, Garden, dan Eden digunakan sebagai client Proxy agar pertukaran informasi d
 
 Pada Proxy Server di Berlint, Loid berencana untuk mengatur bagaimana Client dapat mengakses internet. Artinya setiap client harus menggunakan Berlint sebagai HTTP & HTTPS proxy. Adapun kriteria pengaturannya adalah sebagai berikut:
 
-*1. Client hanya dapat mengakses internet diluar (selain) hari & jam kerja (senin-jumat 08.00 - 17.00) dan hari libur (dapat mengakses 24 jam penuh)
-*2. Adapun pada hari dan jam kerja sesuai nomor (1), client hanya dapat mengakses domain loid-work.com dan franky-work.com (IP tujuan domain dibebaskan)
-*3. Saat akses internet dibuka, client dilarang untuk mengakses web tanpa HTTPS. (Contoh web HTTP: <http://example.com>)
-*4. Agar menghemat penggunaan, akses internet dibatasi dengan kecepatan maksimum 128 Kbps pada setiap host (Kbps = kilobit per second; lakukan pengecekan pada tiap host, ketika 2 host akses internet pada saat bersamaan, keduanya mendapatkan speed maksimal yaitu 128 Kbps)
-*5. Setelah diterapkan, ternyata peraturan nomor (4) mengganggu produktifitas saat hari kerja, dengan demikian pembatasan kecepatan hanya diberlakukan untuk pengaksesan internet pada hari libur
+1. Client hanya dapat mengakses internet diluar (selain) hari & jam kerja (senin-jumat 08.00 - 17.00) dan hari libur (dapat mengakses 24 jam penuh.
+2. Adapun pada hari dan jam kerja sesuai nomor (1), client hanya dapat mengakses domain loid-work.com dan franky-work.com (IP tujuan domain dibebaskan)
+3. Saat akses internet dibuka, client dilarang untuk mengakses web tanpa HTTPS. (Contoh web HTTP: <http://example.com>)
+4. Agar menghemat penggunaan, akses internet dibatasi dengan kecepatan maksimum 128 Kbps pada setiap host (Kbps = kilobit per second; lakukan pengecekan pada tiap host, ketika 2 host akses internet pada saat bersamaan, keduanya mendapatkan speed maksimal yaitu 128 Kbps)
+5. Setelah diterapkan, ternyata peraturan nomor (4) mengganggu produktifitas saat hari kerja, dengan demikian pembatasan kecepatan hanya diberlakukan untuk pengaksesan internet pada hari libur
 
 Setelah proxy Berlint diatur oleh Loid, dia melakukan pengujian dan mendapatkan hasil sesuai tabel berikut.
 
@@ -434,6 +434,7 @@ franky-work.com
 * Menambahkan konfigurasi berikut ke dalam ```/etc/squid/acl.conf``` agar internet dapat diakses pada jam tertentu. M=Senin, T=Selasa, W=Rabu, H=Kamis, F=Jumat, S=Minggu, dan A=Sabtu.
 
 ```sh
+acl AVAILABLE_WORKING time MTWHF 08:00-16:59
 acl AVAILABLE_INTERNET time MTWHF 17:00-23:59
 acl AVAILABLE_INTERNET time MTWHF 00:00-08:00
 acl AVAILABLE_INTERNET time SA 00:00-23:59
@@ -449,14 +450,13 @@ visible_hostname Berlint
 acl SSL_ports port 443
 acl WORKSITES dstdomain "/etc/squid/work-sites.acl"
 
-#http_access deny !SSL_ports
-#http_access allow all
-#http_access deny WORKSITES
-#http_access allow all
+http_access deny !SSL_ports
+http_access allow WORKSITES AVAILABLE_WORKING
+http_access deny WORKSITES AVAILABLE_INTERNET
 http_access allow AVAILABLE_INTERNET
+http_access deny AVAILABLE_WORKING
 http_access deny all
-#http_access allow WORKSITES
-http_access deny WORKSITES
+
 
 delay_pools 1
 delay_class 1 2
@@ -464,28 +464,44 @@ delay_access 1 allow all
 delay_parameters 1 none 16000/16000
 ```
 
-## Kendala
-
-Tidak ada.
-
-## Dokumentasi Soal 8
+## Dokumentasi Soal 8 (1)
 
 * Akses Google pada jam kerja (Senin - Jumat 10.00 - 17.00)  `lynx google.com`
 
 ![Hasil soal 8a](images/8.1.1.png)
 ![Hasil soal 8a](images/8.1.2.png)
 
-* Akses loid-work.com pada jam kerja (Senin - Jumat 10.00 - 17.00)  `lynx loid-work.com`
-
-![Hasil soal 8a](images/8.2.1.png)
-![Hasil soal 8a](images/8.2.2.png)
-
 * Akses google.com di luar jam kerja (Senin - Jumat 17.00 - 08.00 [besoknya] dan Sabtu - Minggu 24 jam)  `lynx google.com`
 
 ![Hasil soal 8a](images/8.3.1.png)
 ![Hasil soal 8a](images/8.3.2.png)
 
+## Dokumentasi Soal 8 (2)
+
+Pada soal 8 (2) ini masih belum work entah kenapa, sudah mencoba urutan konfigurasi yang berbeda tapi hasilnya tidak ada yang sesuai permintaan soal.
+
+* Akses loid-work.com pada jam kerja (Senin - Jumat 10.00 - 17.00)  `lynx loid-work.com`
+
+![Hasil soal 8a](images/8.2.1.png)
+![Hasil soal 8a](images/8.2.2.png)
+
 * Akses loid-work.com di luar jam kerja (Senin - Jumat 17.00 - 08.00 [besoknya] dan Sabtu - Minggu 24 jam)  `lynx loid-work.com`
 
 ![Hasil soal 8a](images/8.4.1.png)
 ![Hasil soal 8a](images/8.4.2.png)
+
+## Dokumentasi Soal 8 (3) - REVISI
+
+* Akses google.com dengan http di luar jam kerja (Senin - Jumat 17.00 - 08.00 [besoknya] dan Sabtu - Minggu 24 jam)  `lynx http://google.com`
+
+![Hasil soal 8a](images/8.5.1.png)
+
+* Akses google.com dengan https di luar jam kerja (Senin - Jumat 17.00 - 08.00 [besoknya] dan Sabtu - Minggu 24 jam)  `lynx https://google.com`
+
+![Hasil soal 8a](images/8.5.2.png)
+
+## Dokumentasi Soal 8 (4-5) - REVISI
+
+* Tes kecepatan download dengan speedtest-cli, jangan lupa untuk install speedtest-cli terlebih dahulu. Jalankan command `speedtest` untuk melakukan speedtest.
+
+![Hasil soal 8a](images/8.6.png)
