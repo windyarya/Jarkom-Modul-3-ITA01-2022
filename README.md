@@ -129,9 +129,9 @@ apt-get install bind9 -y
 ## Kendala
 Tidak ada kendala
 
-## Dokumentasi Soal 2
-- Mencoba ping `google.com` pada salah satu komputer server<br>
-![Hasil soal 1](images/1 2.png)<br>
+## Dokumentasi Soal 1
+-Mencoba ping `google.com` pada salah satu komputer server<br>
+![Hasil soal 1](images/1_2.png)<br>
 
 # Soal 2
 dan Ostania sebagai DHCP Relay
