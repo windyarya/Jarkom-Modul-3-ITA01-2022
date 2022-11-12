@@ -130,7 +130,7 @@ apt-get install bind9 -y
 Tidak ada kendala
 
 ## Dokumentasi Soal 1
--Mencoba ping `google.com` pada salah satu komputer server<br>
+- Mencoba ping `google.com` pada salah satu komputer server<br>
 ![Hasil soal 1](images/1_2.png)<br>
 
 # Soal 2
@@ -189,7 +189,7 @@ service isc-dhcp-server restart
 Tidak ada kendala
 
 ## Dokumentasi Soal 3
-- <br>
+- Mengecek ip dengan syntax `ip a`<br>
 ![Hasil soal 3](images/3.png)<br>
 
 # Soal 7
