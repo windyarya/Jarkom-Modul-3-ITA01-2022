@@ -179,12 +179,6 @@ Lalu lakukan perintah untuk menjalankan perintahnya
 service isc-dhcp-relay star
 ```
 
-## Dokumentasi Soal 2
-
-* Maka Eden akan mendapatkan IP `10.40.3.13`
-
-![Hasil soal 2](images/2.png)
-
 ## Kendala
 
 Tidak ada kendala
